@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -54,9 +55,9 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
-  resources :wiki
+  resources :wikis
 
   devise_for :users
 
-  root to: 'wiki#index'
+  root to: 'wikis#index'
 end
