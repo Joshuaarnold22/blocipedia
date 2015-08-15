@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <div class="container">
     <head>
       <title>Blocipedia</title>
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,21 +9,32 @@
     </head>
     <body>
         <nav class="navbar navbar-default">
-          <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">Blocipedia</a>
+          </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
                 <li><%= link_to "Home", root_path %></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Test
+                    <b class="caret"></b>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><%= link_to "Test"  %></li>
+                    <li><%= link_to "Test"  %></li>
+                  </ul>
+                </li>
+                <li class="nav pull-right">
+                  <% if current_user %>
+                    Hello <%= current_user.email %>! <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+                  <% else %>
+                    <%= link_to "Sign In", new_user_session_path %> or <%= link_to "Sign Up", new_user_registration_path %>
+                  <% end %>
+                </li>
               </ul>
-             </div>
-           </div>
-           <div class="pull-right user-info">
-                <% if current_user %>
-                  Hello <%= current_user.email %>! <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
-                <% else %>
-                  <%= link_to "Sign In", new_user_session_path %> or
-                  <%= link_to "Sign Up", new_user_registration_path %>
-                <% end %>
-          </div>
+            </ul>
+         </div>
        </nav>
        <% if flash[:notice] %>
         <div class="alert alert-success">
@@ -42,7 +52,8 @@
           <%= flash[:alert] %>
         </div>
       <% end %>
-    <%= yield %>
+    <div class="container">
+      <%= yield %>
+    </div>
     </body>
-  </div>
 </html>
