@@ -7,6 +7,6 @@ class WikiPolicy < ApplicationPolicy
   end
 
   def update?
-    user.present?
+    user.present? && user.premium?
   end
 end

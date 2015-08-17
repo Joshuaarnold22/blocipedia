@@ -1,4 +1,13 @@
 require 'faker'
+
+user = User.new(
+name: 'Josh',
+email: 'joshuaarnold22@gmail.com',
+password: 'helloworld'
+)
+user.skip_confirmation!
+user.save!
+
 3.times do
   user = User.new(
   name: Faker::Name.name,
