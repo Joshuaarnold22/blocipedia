@@ -32,6 +32,10 @@ class User < ActiveRecord::Base
     role == 'admin'
   end
 
+  def premium?
+    role == 'premium'
+  end
+
   def upgrade_account(user)
     user.role = "premium"
     user.save

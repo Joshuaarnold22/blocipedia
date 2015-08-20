@@ -9,4 +9,8 @@ class WikiPolicy < ApplicationPolicy
   def update?
     user.present? && user.premium?
   end
+
+  def show?
+    wiki.private? || user.present?
+  end
 end

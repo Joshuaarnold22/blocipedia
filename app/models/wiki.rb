@@ -13,4 +13,10 @@
 
 class Wiki < ActiveRecord::Base
   belongs_to :user
+
+  def private?
+    private == false
+  end
+
+  scope :visible_to, -> (user) {  user ? all : where(private: true) }
 end
