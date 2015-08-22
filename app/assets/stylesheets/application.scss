@@ -18,22 +18,22 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 .nav {
-    padding: 20px 0px 50px 0px;
-    height: 1px;
-    margin: 20px;
-    overflow: hidden;
+    padding: 10px 0px 10px 0px;
+    height: 0px;
+    margin: 0px;
   }
-
-.hamberger-nav {
-  margin-top: 30px;
-}
 
 .text-muted {
   margin-top: 40px;
 }
 
 .test {
-  margin-top: 10px;
+  margin: 15px 20px;
+  color: #337ab7;
+}
+
+.navbar-new .navbar-toggle .icon-bar {
+	  background-color: #337ab7;
 }
 /* Small devices (tablets, 768px and up) */
 @media (min-width: $screen-sm-min) {  }

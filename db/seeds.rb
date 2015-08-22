@@ -8,6 +8,14 @@ password: 'helloworld'
 user.skip_confirmation!
 user.save!
 
+user = User.new(
+name: 'test',
+email: 'test@gmail.com',
+password: 'helloworld'
+)
+user.skip_confirmation!
+user.save!
+
 3.times do
   user = User.new(
   name: Faker::Name.name,

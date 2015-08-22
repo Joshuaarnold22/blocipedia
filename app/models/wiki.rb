@@ -5,7 +5,7 @@
 #  id         :integer          not null, primary key
 #  title      :string
 #  body       :text
-#  private    :boolean
+#  private    :boolean          default(FALSE)
 #  user_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -18,5 +18,15 @@ class Wiki < ActiveRecord::Base
     private == false
   end
 
-  scope :visible_to, -> (user) {  user ? all : where(private: true) }
+  scope :visible_to, -> (user) {
+    if !user
+      []
+    elsif user.role == 'standard'
+      where(private: false)
+    elsif user.role == 'premium'
+      all
+    end
+  }
+
+  
 end
