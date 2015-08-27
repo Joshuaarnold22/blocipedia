@@ -27,6 +27,4 @@ class Wiki < ActiveRecord::Base
       all
     end
   }
-
-  
 end
