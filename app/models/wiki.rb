@@ -13,6 +13,8 @@
 
 class Wiki < ActiveRecord::Base
   belongs_to :user
+  has_many :comments
+  has_many :collaborators, through: :comments
 
   def private?
     private == false
@@ -28,5 +30,5 @@ class Wiki < ActiveRecord::Base
     end
   }
 
-  
+
 end

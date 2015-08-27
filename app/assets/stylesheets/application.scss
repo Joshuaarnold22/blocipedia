@@ -19,8 +19,6 @@
 @import "bootstrap";
 .nav {
     padding: 10px 0px 10px 0px;
-    height: 0px;
-    margin: 0px;
   }
 
 .text-muted {
@@ -35,6 +33,7 @@
 .navbar-new .navbar-toggle .icon-bar {
 	  background-color: #337ab7;
 }
+
 /* Small devices (tablets, 768px and up) */
 @media (min-width: $screen-sm-min) {  }
 
