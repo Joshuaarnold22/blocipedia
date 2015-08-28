@@ -57,6 +57,7 @@ Rails.application.routes.draw do
   resources :charges, only: [:new, :create, :update]
 
   resources :wikis
+  resources :collaborators, only: [:create]
 
   devise_for :users
 
