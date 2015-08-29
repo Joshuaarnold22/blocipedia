@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -54,10 +56,15 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+
   resources :charges, only: [:new, :create, :update]
 
-  resources :wikis
-  resources :collaborators, only: [:create]
+  resources :wikis do
+    resources :comments, only: [:create, :destroy]
+    resources :collaborators, only: [:create]
+  end
+
 
   devise_for :users
 

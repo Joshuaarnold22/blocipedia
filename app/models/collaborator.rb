@@ -10,7 +10,9 @@
 #
 
 class Collaborator < ActiveRecord::Base
-
   belongs_to :wiki
   belongs_to :user
+  has_many :comments
+
+  validates_uniqueness_of :user_id, scope: :wiki_id
 end

@@ -6,33 +6,53 @@
   <% end %>
   <p><%= markdown_to_html @wiki.body %></p>
 
+  <h4>Comments</h4>
+  <div class="media">
+    <div class="media-body">
+      <table class="table table-striped">
+        <tbody>
+          <% @wiki.comments.each do |comment| %>
+            <%= content_tag :tr, id: "Comment-#{comment.id}" do %>
+              <td> <%= comment.body %> </td>
+              <td><%= comment.collaborator.user.name %> </td>
+              <% if current_user.role == "premium" %>
+                <td><%= link_to "Delete", method: :delete, class: 'btn btn-danger btn-sm' %></td>
+              <% end %>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <%= render partial: 'comments/form' %>
+
+
   <% @wiki.collaborators.each do |collab| %>
     <span><%= collab.user.name %></span>
     <br/>
   <% end %>
 
   <h3>Add Collaborators </h3>
-  <%= form_for @collaborator do |f| %>
-    <div class="form-group">
-      <%= f.label "email" %>
-      <%= text_field_tag "email", nil, class: 'form-control', placeholder: "Collaborator's email" %>
-    </div>
-    <div class="form-group">
-      <%= f.hidden_field :wiki_id, class: 'form-control', placeholder: "Collaborator's email", value: @wiki.id %>
-    </div>
-    <div class="form-group">
-      <%= f.submit "Save", class: 'btn btn-success' %>
-    </div>
-  <% end %>
-
-
-    <%= form_for @wiki do |f| %>
+    <%= form_for [@wiki, @collaborator] do |f| %>
+      <% if @collaborator.errors.any? %>
+       <div class="alert alert-danger">
+         <h4>There are <%= pluralize(@collaborator.errors.count, "error") %>.</h4>
+         <ul>
+           <% @collaborator.errors.full_messages.each do |msg| %>
+             <li><%= msg %></li>
+           <% end %>
+         </ul>
+       </div>
+     <% end %>
       <div class="form-group">
-        <%= f.label :body %>
-        <%= f.text_area :body, rows: 8, class: 'form-control', placeholder: "Enter your info" %>
+        <%= f.label "email" %>
+        <%= text_field_tag "email", nil, class: 'form-control', placeholder: "Collaborator's email" %>
       </div>
       <div class="form-group">
         <%= f.submit "Save", class: 'btn btn-success' %>
       </div>
     <% end %>
+
+
+
 </div>

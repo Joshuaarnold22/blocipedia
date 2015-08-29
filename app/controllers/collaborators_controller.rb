@@ -1,7 +1,7 @@
 class CollaboratorsController < ApplicationController
 
   def create
-    @wiki = Wiki.find(params[:collaborator][:wiki_id])
+    @wiki = Wiki.find(params[:wiki_id])
     @collaborator = Collaborator.new
     email = params[:email]
     u = User.where(email: email).first
@@ -11,20 +11,22 @@ class CollaboratorsController < ApplicationController
       return
     end
 
-    @collaborator = u.collaborators.build(collaborator_params)
-    if @collaborator.save
-      flash[:notice] = "Collaborator added."
-      redirect_to [@wiki]
-    else
-      flash[:error] = "Something wrong happened."
-      render :back
+    if @wiki.collaborators.where(user_id: u.id).first
+      flash[:error] = "Already a collaborator."
+      render template: "wikis/show"
+      return
     end
+
+    # @collaborator = u.collaborators.build(wiki_id: @wiki.id)
+    # if @collaborator.save
+    #   flash[:notice] = "Collaborator added."
+    #   redirect_to [@wiki]
+    # else
+    #   flash[:error] = "Something wrong happened."
+    #   render template: "wikis/show"
+    # end
   end
 
   private
-
-  def collaborator_params
-    params.require(:collaborator).permit(:email, :wiki_id)
-  end
 
 end
