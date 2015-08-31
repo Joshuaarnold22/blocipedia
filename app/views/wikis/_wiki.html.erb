@@ -6,7 +6,7 @@
     </small>
   </td>
 
-    <% if current_user.role == "premium" %>
+    <% if current_user && current_user.role == "premium" %>
       <td><%= link_to "Edit", edit_wiki_path(wiki), class: 'btn btn-success btn-sm inline clear-right' %></td>
       <td><%= link_to "Delete", wiki, method: :delete, class: 'btn btn-danger btn-sm' %></td>
     <% end %>

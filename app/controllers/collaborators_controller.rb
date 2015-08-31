@@ -17,14 +17,14 @@ class CollaboratorsController < ApplicationController
       return
     end
 
-    # @collaborator = u.collaborators.build(wiki_id: @wiki.id)
-    # if @collaborator.save
-    #   flash[:notice] = "Collaborator added."
-    #   redirect_to [@wiki]
-    # else
-    #   flash[:error] = "Something wrong happened."
-    #   render template: "wikis/show"
-    # end
+    @collaborator = u.collaborators.build(wiki_id: @wiki.id)
+    if @collaborator.save
+      flash[:notice] = "Collaborator added."
+      redirect_to [@wiki]
+    else
+      flash[:error] = "Something wrong happened."
+      render template: "wikis/show"
+    end
   end
 
   private

@@ -1,6 +1,6 @@
 <div class="container">
   <h1><%= markdown_to_html @wiki.title %></h1>
-  <% if policy(@wiki).edit? %>
+  <% if policy(@wiki).edit? || @wiki.user.id == current_user.id %>
     <%= link_to "Edit", edit_wiki_path(@wiki), class: 'btn btn-success' %>
     <%= link_to "Delete", @wiki, method: :delete, class: 'btn btn-danger' %>
   <% end %>
@@ -15,8 +15,8 @@
             <%= content_tag :tr, id: "Comment-#{comment.id}" do %>
               <td> <%= comment.body %> </td>
               <td><%= comment.collaborator.user.name %> </td>
-              <% if current_user.role == "premium" %>
-                <td><%= link_to "Delete", method: :delete, class: 'btn btn-danger btn-sm' %></td>
+              <% if current_user.role == "premium" || "admin" %>
+                <td><%= link_to "Delete",[comment.wiki, comment], method: :delete, class: 'btn btn-danger btn-sm' %></td>
               <% end %>
             <% end %>
           <% end %>
@@ -24,7 +24,16 @@
       </table>
     </div>
   </div>
-  <%= render partial: 'comments/form' %>
+  <% array = [] %>
+  <% @wiki.collaborators.each do |collaborator| %>
+    <% u_id = collaborator.user_id %>
+    <% array << u_id %>
+  <% end %>
+
+
+  <% if current_user.admin? || array.include?(current_user.id) %>
+    <%= render partial: 'comments/form' %>
+  <% end %>
 
 
   <% @wiki.collaborators.each do |collab| %>
@@ -44,10 +53,10 @@
          </ul>
        </div>
      <% end %>
-      <div class="form-group">
+      <%= form_group_tag(@collaborator.errors[:email]) do %>
         <%= f.label "email" %>
         <%= text_field_tag "email", nil, class: 'form-control', placeholder: "Collaborator's email" %>
-      </div>
+      <% end %>
       <div class="form-group">
         <%= f.submit "Save", class: 'btn btn-success' %>
       </div>

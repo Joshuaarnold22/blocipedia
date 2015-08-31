@@ -13,8 +13,8 @@
 
 class Wiki < ActiveRecord::Base
   belongs_to :user
-  has_many :collaborators
-  has_many :comments
+  has_many :collaborators, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   def private?
     private == false

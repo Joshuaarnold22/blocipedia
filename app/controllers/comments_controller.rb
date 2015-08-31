@@ -15,11 +15,11 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @collaborator = Collaborator.find_by(user_id: current_user.id)
     @wiki = Wiki.find(params[:wiki_id])
+    @comment = @wiki.comments.find(params[:id])
 
     if @comment.destroy
-      flash[:notice] = "\"#{@comment.title}\" was deleted successfully."
+      flash[:notice] = "The comment was deleted successfully."
       redirect_to wikis_path
     else
       flash[:error] = "There seems to be a problem."
