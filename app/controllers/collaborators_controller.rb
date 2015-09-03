@@ -6,13 +6,7 @@ class CollaboratorsController < ApplicationController
     email = params[:email]
     u = User.where(email: email).first
     if !u
-      flash[:error] = "No user associated with this email."
-      render template: "wikis/show"
-      return
-    end
-
-    if @wiki.collaborators.where(user_id: u.id).first
-      flash[:error] = "Already a collaborator."
+      @collaborator.errors.add(:email, "No user associated with this email.")
       render template: "wikis/show"
       return
     end
@@ -22,7 +16,6 @@ class CollaboratorsController < ApplicationController
       flash[:notice] = "Collaborator added."
       redirect_to [@wiki]
     else
-      flash[:error] = "Something wrong happened."
       render template: "wikis/show"
     end
   end

@@ -6,12 +6,17 @@ class CommentsController < ApplicationController
     @comment = @collaborator.comments.build(comment_params)
     @comment.wiki = @wiki
     if @comment.save
-      flash[:notice] = "Comment was saved"
-      redirect_to @wiki
+      # flash[:notice] = "Comment was saved"
+      # redirect_to @wiki
     else
-      flash[:error] = "Wasnt saved"
-      render :back
+      # flash[:error] = "Wasnt saved"
+      # render :back
     end
+
+    respond_to do |format|
+       format.html
+       format.js
+     end
   end
 
   def destroy
@@ -19,12 +24,18 @@ class CommentsController < ApplicationController
     @comment = @wiki.comments.find(params[:id])
 
     if @comment.destroy
-      flash[:notice] = "The comment was deleted successfully."
-      redirect_to wikis_path
+      # flash[:notice] = "The comment was deleted successfully."
+      # redirect_to wiki_path(@wiki)
     else
-      flash[:error] = "There seems to be a problem."
-      render :show
+      # flash[:error] = "There seems to be a problem."
+      # render :show
     end
+
+    respond_to do |format|
+       format.html
+       format.js
+     end
+
   end
 
   private

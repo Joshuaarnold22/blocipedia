@@ -33,6 +33,27 @@
 .navbar-new .navbar-toggle .icon-bar {
 	  background-color: #337ab7;
 }
+
+.jumbotron {
+    position: relative;
+    background: url("FAQ_banner.jpg") no-repeat center center;
+    background-size: cover;
+}
+
+.jumbotron h1 {
+  color: white;
+}
+
+.jumbotron p {
+  color: white;
+}
+
+.jumbotron .container {
+  margin-top: -50px;
+  margin-bottom: 20px;
+}
+
+
 /* Small devices (tablets, 768px and up) */
 @media (min-width: $screen-sm-min) {  }
 
