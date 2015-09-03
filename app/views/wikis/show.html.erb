@@ -7,19 +7,11 @@
   <p><%= markdown_to_html @wiki.body %></p>
 
   <h4>Comments</h4>
-  <div class="media">
-    <div class="media-body">
-      <table class="table table-striped">
-        <tbody>
-          <% @wiki.comments.each do |comment| %>
-            <%= content_tag :tr, id: "comment-#{comment.id}" do %>
-              <td> <%= comment.body %> </td>
-              <td><%= comment.collaborator.user.name %> </td>
-              <% if current_user.role == "premium" || "admin" %>
-                <td><%= link_to "Delete",[comment.wiki, comment], method: :delete, class: 'btn btn-danger btn-sm', remote: true %></td>
-              <% end %>
-            <% end %>
-          <% end %>
+    <div class="media">
+      <div class="media-body">
+        <table class="table table-striped">
+          <tbody class="comment-table">
+            <%= render partial: 'comments/comment', collection: @comments %>
         </tbody>
       </table>
     </div>

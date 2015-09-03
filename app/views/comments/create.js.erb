@@ -1,6 +1,6 @@
-<% if @comment.created? %>
-  $('#comment-' +<%= @comment.id %>).fadeIn(300);
-  $('nav').append('<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button><%= flash[:info] = "Comment was saved!" %></div>');
+<% if @comment %>
+  $('.comment-table').append("<%= escape_javascript(render(@comment)) %>");
+  // $('nav').append('<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button><%= flash[:info] = "Comment was saved!" %></div>');
 <% else %>
   $('nav').append('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">&times;</button><%= flash[:info] = "There was an error saving your comment!" %></div>');
 <% end %>
