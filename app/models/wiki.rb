@@ -9,12 +9,16 @@
 #  user_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  slug       :string
 #
 
 class Wiki < ActiveRecord::Base
   belongs_to :user
   has_many :collaborators, dependent: :destroy
   has_many :comments, dependent: :destroy
+
+  extend FriendlyId
+  friendly_id :title, use: :slugged
 
   def private?
     private == false

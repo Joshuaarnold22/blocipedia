@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150828175523) do
+ActiveRecord::Schema.define(version: 20150904135853) do
 
   create_table "amounts", force: :cascade do |t|
     t.string   "default"
@@ -39,6 +39,19 @@ ActiveRecord::Schema.define(version: 20150828175523) do
 
   add_index "comments", ["collaborator_id"], name: "index_comments_on_collaborator_id"
   add_index "comments", ["wiki_id"], name: "index_comments_on_wiki_id"
+
+  create_table "friendly_id_slugs", force: :cascade do |t|
+    t.string   "slug",                      null: false
+    t.integer  "sluggable_id",              null: false
+    t.string   "sluggable_type", limit: 50
+    t.string   "scope"
+    t.datetime "created_at"
+  end
+
+  add_index "friendly_id_slugs", ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
+  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
+  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
@@ -71,8 +84,10 @@ ActiveRecord::Schema.define(version: 20150828175523) do
     t.integer  "user_id"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.string   "slug"
   end
 
+  add_index "wikis", ["slug"], name: "index_wikis_on_slug", unique: true
   add_index "wikis", ["user_id"], name: "index_wikis_on_user_id"
 
 end

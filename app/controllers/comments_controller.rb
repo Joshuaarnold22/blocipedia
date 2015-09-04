@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   def create
     @collaborator = Collaborator.find_by(user_id: current_user.id)
-    @wiki = Wiki.find(params[:wiki_id])
+    @wiki = Wiki.friendly.find(params[:wiki_id])
 
     @comment = @collaborator.comments.build(comment_params)
     @comment.wiki = @wiki
@@ -20,7 +20,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @wiki = Wiki.find(params[:wiki_id])
+    @wiki = Wiki.friendly.find(params[:wiki_id])
     @comment = @wiki.comments.find(params[:id])
 
     if @comment.destroy

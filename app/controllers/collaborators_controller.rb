@@ -1,7 +1,7 @@
 class CollaboratorsController < ApplicationController
 
   def create
-    @wiki = Wiki.find(params[:wiki_id])
+    @wiki = Wiki.friendly.find(params[:wiki_id])
     @collaborator = Collaborator.new
     email = params[:email]
     u = User.where(email: email).first
