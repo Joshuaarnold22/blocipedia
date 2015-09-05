@@ -5,7 +5,6 @@
     <%= link_to "Delete", @wiki, method: :delete, class: 'btn btn-danger' %>
   <% end %>
   <p><%= markdown_to_html @wiki.body %></p>
-
   <h4>Comments</h4>
     <div class="media">
       <div class="media-body">
@@ -16,20 +15,25 @@
       </table>
     </div>
   </div>
+  </div>
   <% array = [] %>
   <% @wiki.collaborators.each do |collaborator| %>
     <% u_id = collaborator.user_id %>
     <% array << u_id %>
   <% end %>
-
-  <% if current_user.admin? || array.include?(current_user.id) %>
-    <%= render partial: 'comments/form' %>
-  <% end %>
-
+    <% if current_user.admin? || array.include?(current_user.id) %>
+    <div style="background-color: #EFF0F1; padding-top: 50px; padding-bottom: 20px;">
+      <div class="container">
+        <%= render partial: 'comments/form' %>
+      </div>
+    </div>
+    <% end %>
+<div class="container">
   <% @wiki.collaborators.each do |collab| %>
     <span><%= collab.user.name %></span>
     <br/>
   <% end %>
+
 
   <h3>Add Collaborators </h3>
     <%= form_for [@wiki, @collaborator] do |f| %>
