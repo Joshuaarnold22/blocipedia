@@ -1,5 +1,4 @@
-
-<%= content_tag :tr, id: "comment-#{comment.id}" do %>
+<%= content_tag :tr, id: "comment-#{comment.id}", class: "comment-test" do %>
   <td> <%= comment.body %> </td>
   <td><%= comment.collaborator.user.name %> </td>
   <% if current_user.role == "premium" || "admin" %>

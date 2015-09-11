@@ -21,43 +21,37 @@
     <% u_id = collaborator.user_id %>
     <% array << u_id %>
   <% end %>
-    <% if current_user.admin? || array.include?(current_user.id) %>
-    <div style="background-color: #EFF0F1; padding-top: 50px; padding-bottom: 20px;">
+  <% if @wiki.collaborators.count > 0 %>
+  <div style="background-color: #EFF0F1; padding: 15px 0px; color: green;">
+    <div class="container">
+      <h4>Current Collaborators</h4>
+      <% @wiki.collaborators.each do |collab| %>
+        <span><%= collab.user.name %> | </span>
+      <% end %>
+    </div>
+  </div>
+  <% else %>
+  <div class="container">
+    <div class="list-group">
+      <h4 class="list-group-item active">Be the first to collaborate</h4>
+    </div>
+  </div>
+  <% end %>
+  <% if current_user.admin? || array.include?(current_user.id) %>
+  <div class="row">
+    <div style="background-color: #EFF0F1; padding-top: 50px; padding-bottom: 20px; box-shadow: inset 0px 10px 10px #888888;">
       <div class="container">
-        <%= render partial: 'comments/form' %>
+        <div class="col-md-6">
+          <%= render partial: 'comments/form' %>
+        </div>
+        <div class="col-md-6">
+          <%= render partial: "collab_form" %>
+        </div>
       </div>
     </div>
-    <% end %>
-<div class="container">
-  <% @wiki.collaborators.each do |collab| %>
-    <span><%= collab.user.name %></span>
-    <br/>
+  </div>
+  <% else %>
+    <div class="container">
+      <%= render partial: "collab_form" %>
+    </div>
   <% end %>
-
-
-  <h3>Add Collaborators </h3>
-    <%= form_for [@wiki, @collaborator] do |f| %>
-      <% if @collaborator.errors.any? %>
-       <div class="alert alert-danger">
-         <h4>There are <%= pluralize(@collaborator.errors.count, "error") %>.</h4>
-         <ul>
-           <% @collaborator.errors.full_messages.each do |msg| %>
-             <li><%= msg %></li>
-           <% end %>
-         </ul>
-       </div>
-       <% elsif @collaborator.save %>
-        <div class="alert alert-success">
-          <h4>Your Collaborator has been added.</h4>
-        </div>
-      <% end %>
-
-      <%= form_group_tag(@collaborator.errors[:email]) do %>
-        <%= f.label "email" %>
-        <%= text_field_tag "email", nil, class: 'form-control', placeholder: "Collaborator's email" %>
-      <% end %>
-      <div class="form-group">
-        <%= f.submit "Save", class: 'btn btn-success' %>
-      </div>
-    <% end %>
-</div>
