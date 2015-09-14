@@ -31,6 +31,7 @@ class User < ActiveRecord::Base
 
   has_many :collaborators
   has_many :wikis
+  has_many :comments
 
   def admin?
     role == 'admin'

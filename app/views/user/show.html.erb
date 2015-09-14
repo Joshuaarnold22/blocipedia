@@ -1,0 +1,11 @@
+<h1><%= @user %></h1>
+
+<h2>Wiki's</h2>
+<% @wikis.each do |wiki| %>
+  <%= wiki.title %>
+<% end %>
+
+<h2>Comments</h2>
+<% @comments.each do |comment| %>
+  <%= comment.body %>
+<% end %>

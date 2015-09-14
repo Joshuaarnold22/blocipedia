@@ -4,6 +4,7 @@ class CommentsController < ApplicationController
     @wiki = Wiki.friendly.find(params[:wiki_id])
 
     @comment = @collaborator.comments.build(comment_params)
+    @comment.user = current_user
     @comment.wiki = @wiki
     if @comment.save
       # flash[:notice] = "Comment was saved"

@@ -62,7 +62,26 @@
   }
 }
 
+/* Edit user
+=======================================*/
+.log-in{
+  margin:auto;
+  padding-top:10%;
+  font-family: 'Roboto', Arial, sans-serif;
+}
 
+.panel-heading{
+  background-color:#fff;
+  font-size: 20px;
+}
+
+.form-control{
+
+}
+
+.panel-body p{
+  color:#555;
+}
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: $screen-sm-min) {

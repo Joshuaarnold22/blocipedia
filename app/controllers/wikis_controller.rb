@@ -43,12 +43,15 @@ class WikisController < ApplicationController
   end
 
   def destroy
+
     @wiki = Wiki.friendly.find(params[:id])
 
     if @wiki.destroy
+      @wikis = policy_scope(Wiki)
       flash[:notice] = "\"#{@wiki.title}\" was deleted successfully."
-      redirect_to wikis_path
+      redirect_to(:back)
     else
+      @wikis = policy_scope(Wiki)
       flash[:error] = "There seems to be a problem."
       render :show
     end

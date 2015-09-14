@@ -1,39 +1,91 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      Edit <%= resource_name.to_s.humanize %>
+    </div>
+    <div class="panel-body">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+        <%= devise_error_messages! %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
+        <div class="form-group">
+          <%= f.label :email, class: "control-label" %><br />
+          <%= f.email_field :email, class: "form-control", autofocus: true %>
+        </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+        <% end %>
+
+        <div class="form-group">
+          <%= f.label :password, class: "control-label" %> <i>(leave blank if you don't want to change it)</i><br />
+          <%= f.password_field :password, class: "form-control", autocomplete: "off" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :password_confirmation, class: "control-label" %><br />
+          <%= f.password_field :password_confirmation, class: "form-control", autocomplete: "off" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :current_password, class: "control-label" %> <i>(we need your current password to confirm your changes)</i><br />
+          <%= f.password_field :current_password, class: "form-control", autocomplete: "off" %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit "Update", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+
+      <h3>Cancel my account</h3>
+
+      <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger" %></p>
+
+      <%= link_to "Back", :back %>
+    </div>
+
+<div class="panel-heading">
+  <%= @user.name %>'s current activity
+</div>
+ <div class="container">
+  <ul class="nav nav-tabs">
+    <li role="presentation" class="active"><a href="#wikis" data-toggle="tab">Wikis</a></li>
+    <li role="presentation"><a href="#comments" data-toggle="tab">Comment's</a></li>
+  </ul>
+</div>
+
+  <div id="my-tab-content" class="tab-content">
+    <div class="tab-pane active" id="wikis">
+      <div class="media">
+        <div class="media-body">
+          <table class="table table-striped">
+            <tbody class="comment-table">
+              <% @wikis.each do |wiki| %>
+                <%= content_tag :tr, id: "wiki-#{wiki.id}", class: "comment-test" do %>
+                  <td><%= wiki.title %></td>
+                  <td><%= link_to "Delete",wiki , method: :delete, class: 'btn btn-danger btn-sm' %></td>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="comments">
+      <div class="media">
+        <div class="media-body">
+          <table class="table table-striped">
+            <tbody class="comment-table">
+              <% @comments.each do |comment| %>
+                <%= content_tag :tr, id: "comment-#{comment.id}", class: "comment-test" do %>
+                <td><%= comment.body %></td>
+                <td><%= link_to "Delete","wiki/wiki_id/comments/commet_id" , method: :delete, class: 'btn btn-danger btn-sm' %></td>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
+</div>
+</div>

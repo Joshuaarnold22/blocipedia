@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150904135853) do
+ActiveRecord::Schema.define(version: 20150911005908) do
 
   create_table "amounts", force: :cascade do |t|
     t.string   "default"
@@ -35,9 +35,11 @@ ActiveRecord::Schema.define(version: 20150904135853) do
     t.integer  "wiki_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "user_id"
   end
 
   add_index "comments", ["collaborator_id"], name: "index_comments_on_collaborator_id"
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
   add_index "comments", ["wiki_id"], name: "index_comments_on_wiki_id"
 
   create_table "friendly_id_slugs", force: :cascade do |t|
